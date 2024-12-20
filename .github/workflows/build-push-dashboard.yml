@@ -25,7 +25,7 @@ jobs:
           cd ui/ && pnpm install
       - name: build-dashboard
         run: |
-          pnpm run dashboard:build 
+          make bundle-ui-dashboard
       - name: upload-dashboard
         uses: actions/upload-artifact@v4
         with:
@@ -65,7 +65,7 @@ jobs:
         run: |
           make image-karmada-dashboard-web GOARCH=amd64
       - name: login-docker
-        uses: docker/login-action@v4
+        uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
