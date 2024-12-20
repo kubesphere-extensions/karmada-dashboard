@@ -2,6 +2,8 @@ name: build-push-dashboard
 
 on:
   push:
+    branches:
+      - main
     tags:
       - '*'
 
@@ -35,6 +37,14 @@ jobs:
     runs-on: ubuntu-latest
     needs: [build-dashboard]
     steps:
+      - name: set-version
+        run: |
+          if [[ $GITHUB_REF == refs/tags/* ]]; then
+            VERSION=${GITHUB_REF#refs/tags/}
+          else
+            VERSION="1.0.6"
+          fi
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
       - name: checkout
         uses: actions/checkout@v4
       - name: Set up Go
@@ -61,5 +71,5 @@ jobs:
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
       - name: tag-and-push-image
         run: |
-          docker tag karmada/karmada-dashboard-web:main kubesphere/karmada-dashboard-web:${{github.ref_name}}
-          docker push kubesphere/karmada-dashboard-web:${{github.ref_name}}
+          docker tag karmada/karmada-dashboard-web:main kubesphere/karmada-dashboard-web:${{ env.VERSION }}
+          docker push kubesphere/karmada-dashboard-web:${{ env.VERSION }}
