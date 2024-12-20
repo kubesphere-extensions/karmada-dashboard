@@ -63,7 +63,7 @@ jobs:
           ls ui/apps/dashboard/dist
       - name: build-dashboard-image
         run: |
-          make image-karmada-dashboard-web GOARCH=amd64
+          make image-karmada-dashboard-web GOARCH=amd64 REGISTRY=docker.io/kubesphere
       - name: login-docker
         uses: docker/login-action@v3
         with:
@@ -71,5 +71,4 @@ jobs:
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
       - name: tag-and-push-image
         run: |
-          docker tag karmada/karmada-dashboard-web:main kubesphere/karmada-dashboard-web:${{ env.VERSION }}
           docker push kubesphere/karmada-dashboard-web:${{ env.VERSION }}
