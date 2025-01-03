@@ -3,7 +3,7 @@ import App from '../App';
 
 export default [
   {
-    path: '/karmada-dashboard-ui',
+    path: '/karmada-dashboard',
     element: <App />,
   },
 ];
