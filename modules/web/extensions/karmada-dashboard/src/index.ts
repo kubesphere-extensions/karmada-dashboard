@@ -3,7 +3,7 @@ import locales from './locales';
 
 const menus = [
   {
-    parent: 'topbar',
+    parent: 'global',
     name: 'karmada-dashboard',
     title: 'Karmada Dashboard',
     icon: 'cluster',
