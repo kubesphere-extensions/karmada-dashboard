@@ -6,6 +6,10 @@ on:
       - main
     tags:
       - '*'
+    path:
+      - modules/web/**
+
+  workflow_dispatch:
 
 env:
   EXT_NAME: karmada-dashboard
