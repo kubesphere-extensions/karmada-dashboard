@@ -5,7 +5,7 @@ on:
     branches:
       - main
     tags:
-      - '*'
+      - "*"
     path:
       - modules/web/**
 
@@ -29,11 +29,18 @@ jobs:
       - name: Install Yarn
         run: npm install -g yarn
 
+      - name: Login (Internal)
+        uses: ./.github/actions/npm-login
+        with:
+          username: ${{ secrets.EXTERNAL_NPM_USERNAME }}
+          password: ${{ secrets.EXTERNAL_NPM_PASSWORD }}
+          registry: ${{ secrets.EXTERNAL_NPM_REGISTRY }}
+
       - name: Install Dependencies
-        run: cd modules/web && yarn install
+        run: cd modules/web && yarn install --frozen-lockfile --prefer-offline
 
       - name: Build Extension
-        run: cd modules/web && yarn build:ext $EXT_NAME 
+        run: cd modules/web && yarn build:ext $EXT_NAME
 
       - name: Upload Extension Build
         uses: actions/upload-artifact@v4
