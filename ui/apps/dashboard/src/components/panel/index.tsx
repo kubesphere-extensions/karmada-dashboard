@@ -2,7 +2,6 @@ import { FC, ReactNode, useMemo } from 'react';
 import { useMatches } from 'react-router-dom';
 import { Breadcrumb, BreadcrumbProps } from 'antd';
 import { getRoutes, IRouteObjectHandle } from '@/routes/route.tsx';
-import * as React from 'react';
 
 interface IPanelProps {
   children: ReactNode;
